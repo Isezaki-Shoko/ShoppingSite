@@ -1,64 +1,79 @@
-/* 全体背景 */
+@charset "UTF-8";
+
+/* 全体 */
 body {
-  margin: 0;
-  font-family: "Arial", sans-serif;
-  background: #f5f1ea;
-  color: #3b2f2f;
-  text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    font-family: "Yu Gothic", "Meiryo", sans-serif;
 }
 
-/* ヘッダー */
-header {
-  background: #5a3e2b;
-  color: white;
-  padding: 15px 20px;
-  font-size: 18px;
-}
-
-/* フッター */
+/* ヘッダー・フッター */
+header,
 footer {
-  background: #3b2f2f;
-  color: #fff;
-  text-align: center;
-  padding: 15px;
-  margin-top: 40px;
+    background-color: #2b2b2b;
+    color: #ffffff;
+    text-align: center;
+    padding: 15px;
 }
 
-/* コンテナ */
-.container {
-  width: 90%;
-  max-width: 1000px;
-  margin: 30px auto;
+/* メインコンテンツ */
+main {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
 }
 
-/* カード */
-.card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 6px 15px rgba(90, 62, 43, 0.15);
-  border-left: 6px solid #8b5e3c;
-  transition: 0.3s;
+/* 見出し */
+h1,
+h2 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 25px;
 }
 
-/* ホバー */
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(90, 62, 43, 0.25);
+/* フォーム */
+form {
+    margin-bottom: 20px;
+}
+
+/* 入力欄 */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #3a3a3a;
+    color: white;
 }
 
 /* ボタン */
-button {
-  background: #8b5e3c;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4a5568;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-button:hover {
-  background: #5a3e2b;
+input[type="submit"]:hover {
+    background-color: #5f6f87;
+}
+
+/* メッセージ */
+p {
+    text-align: center;
+    margin-bottom: 20px;
 }

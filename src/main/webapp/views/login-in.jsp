@@ -2,10 +2,16 @@
 <%@include file="../header.html" %>
 
 <title>ログイン</title>
-<h2>ログイン</h2>
+<h1>ログイン</h1>
 <form action="<%=request.getContextPath()%>/jp/co/aforce/servlet/Login.action" method="post">
 ID <input type="text" name="memberId"><br>
-パスワード <input type="password" name="password"><br>
+パスワード <input type="password" name="password"id="password"><br>
+<label>
+<input type="checkbox" onclick="togglePassword()">
+パスワードを表示する
+</label>
+<br><br>
+
 <input type="submit" value="ログイン">
 </form>
 <h2>はじめてご利用の方</h2>

@@ -29,8 +29,11 @@ public class LoginAction extends Action{
 
                 
                 session.setAttribute("user", user);
+                
+                
                 return "/views/user-menu.jsp";
             }
+           
             return "/views/login-error.jsp";
             
     }
