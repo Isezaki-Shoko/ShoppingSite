@@ -4,6 +4,10 @@
 
 <title>ログインエラー</title>
 
+<p style="color:red;">
+    ${errorMsg}
+</p>
+
 <p>IDもしくはパスワードが違います</p>
 
 <form action="<%=request.getContextPath()%>/views/login-in.jsp" method="get">
