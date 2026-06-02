@@ -13,8 +13,8 @@
 	<br> <input type="submit" value="ログイン">
 </form>
 <h2>はじめてご利用の方</h2>
-<form action="register.jsp" method="get">
-	<input type="submit" value="新規会員登録">
+<form action="<%=request.getContextPath()%>/views/user-add.jsp" method="get">
+    <input type="submit" value="新規会員登録">
 </form>
 
 <%@include file="../footer.html"%>

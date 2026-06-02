@@ -41,8 +41,10 @@ public class LoginFilter implements Filter {
         // 未ログインでもアクセス可能なページ
         if (path.endsWith("login-in.jsp")
                 || path.endsWith("login-error.jsp")
-                || path.endsWith("register.jsp")
-                || path.endsWith("logout-out.jsp")) {
+                || path.endsWith("logout-out.jsp")
+                || path.endsWith("user-add.jsp")
+                || path.endsWith("user-add-confirm.jsp")
+                || path.endsWith("user-success.jsp")) {
 
             chain.doFilter(request, response);
             return;
