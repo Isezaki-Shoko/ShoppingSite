@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@include file="../header.html"%>
-
-<jsp:useBean id="user" class="jp.co.aforce.beans.Users" scope="request" />
-
-<h1>登録内容確認</h1>
+<title>修正内容確認</title>
 
 <p>
 	ID：<jsp:getProperty name="user" property="memberId" /></p>
@@ -16,7 +13,7 @@
 	メールアドレス：<jsp:getProperty name="user" property="mailAddress" /></p>
 
 <form
-	action="<%=request.getContextPath()%>/jp/co/aforce/servlet/UserSuccess.action"
+	action="<%=request.getContextPath()%>/jp/co/aforce/servlet/UserUpdate.action"
 	method="post">
 	<input type="hidden" name="memberId" value="${user.memberId}">
 	<input type="hidden" name="password" value="${user.password}">
@@ -27,10 +24,9 @@
 
 	<input type="submit" value="確定"><br>
 </form>
-<form action="<%=request.getContextPath()%>/views/user-add.jsp"
+<form action="<%=request.getContextPath()%>/views/user-update.jsp"
 	method="get">
 	<input type="submit" value="戻る">
 </form>
-
 
 <%@include file="../footer.html"%>

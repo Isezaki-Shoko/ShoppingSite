@@ -10,17 +10,16 @@ import jp.co.aforce.beans.Users;
 import jp.co.aforce.dao.UsersDAO;
 import tool.Action;
 
-
 public class UserSuccessAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        Users user = new Users();
+
         try {
             request.setCharacterEncoding("UTF-8");
-
-            Users user = new Users();
 
             user.setMemberId(request.getParameter("memberId"));
             user.setPassword(request.getParameter("password"));
@@ -30,12 +29,20 @@ public class UserSuccessAction extends Action {
             user.setMailAddress(request.getParameter("mailAddress"));
 
             UsersDAO dao = new UsersDAO();
-            dao.insert(user);
+            int result = dao.insert(user);
 
-            return "/views/user-add-success.jsp";
+            if (result == 1) {
+                return "/views/user-add-success.jsp";
+            }
+
+            request.setAttribute("message", "会員登録に失敗しました。");
+            request.setAttribute("user", user);
+            return "/views/user-add.jsp";
 
         } catch (Exception e) {
             e.printStackTrace();
+            request.setAttribute("message", e.getClass().getName() + " : " + e.getMessage());
+            request.setAttribute("user", user);
             return "/views/user-add.jsp";
         }
     }

@@ -65,4 +65,48 @@ public class UsersDAO extends DAO {
 
         return result;
     }
+
+
+public int delete(String memberId) throws Exception {
+
+    Connection con = getConnection();
+
+    PreparedStatement st = con.prepareStatement(
+        "DELETE FROM users WHERE MEMBER_ID=?"
+    );
+
+    st.setString(1, memberId);
+
+    int result = st.executeUpdate();
+
+    st.close();
+    con.close();
+
+    return result;
+}
+
+public int update(Users user) throws Exception {
+
+    Connection con = getConnection();
+
+    PreparedStatement st = con.prepareStatement(
+        "UPDATE USERS "
+      + "SET PASSWORD=?, LAST_NAME=?, FIRST_NAME=?, "
+      + "ADDRESS=?, MAIL_ADDRESS=? "
+      + "WHERE MEMBER_ID=?");
+
+    st.setString(1, user.getPassword());
+    st.setString(2, user.getLastName());
+    st.setString(3, user.getFirstName());
+    st.setString(4, user.getAddress());
+    st.setString(5, user.getMailAddress());
+    st.setString(6, user.getMemberId());
+
+    int line = st.executeUpdate();
+
+    st.close();
+    con.close();
+
+    return line;
+}
 }

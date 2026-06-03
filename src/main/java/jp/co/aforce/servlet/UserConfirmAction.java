@@ -26,6 +26,24 @@ public class UserConfirmAction extends Action {
             String address = request.getParameter("address");
             String mailAddress = request.getParameter("mailAddress");
 
+            String pattern = "^[a-zA-Z0-9]{8,16}$";
+
+            if (!memberId.matches(pattern)) {
+                request.setAttribute("message",
+                    "会員IDは半角英数字8～16文字で入力してください。");
+                return "/views/user-add.jsp";
+            }if (!password.matches(pattern)) {
+                request.setAttribute("message",
+                        "パスワードは半角英数字8～16文字で入力してください。");
+                    return "/views/user-add.jsp";
+                }
+            if (memberId.equals(password)) {
+                request.setAttribute(
+                    "message",
+                    "会員IDとパスワードは同じにできません。");
+                return "/views/user-add.jsp";
+            }
+
             if (password == null || !password.equals(passwordConfirm)) {
                 request.setAttribute("message", "パスワードが一致しません。");
                 return "/views/user-add.jsp";
@@ -49,3 +67,4 @@ public class UserConfirmAction extends Action {
         }
     }
 }
+

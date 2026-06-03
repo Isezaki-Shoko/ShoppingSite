@@ -9,12 +9,12 @@ Users user = (Users)session.getAttribute("user");
 <title>ホーム</title>
 
 <h2>ようこそ<%= user.getLastName() %>さん！</h2>
-<form action="update" method="post">
-<input type="submit" value="修正">
+<form action="<%=request.getContextPath()%>/views/user-update.jsp" method="get">
+<input type="submit" value="会員情報修正">
 </form>
 
-<form action="delete" method="post">
-<input type="submit" value="削除">
+<form action="<%=request.getContextPath()%>/views/user-delete-confirm.jsp" method="post">
+<input type="submit" value="退会">
 </form>
 
 <form action="<%=request.getContextPath()%>/jp/co/aforce/servlet/Logout.action" method="post"

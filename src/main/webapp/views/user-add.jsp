@@ -4,9 +4,10 @@
 <title>新規会員登録</title>
 
 <h1>新規会員登録</h1>
+<p style="color:red;">${message}</p>
 
 <form action="<%=request.getContextPath()%>/jp/co/aforce/servlet/UserConfirm.action" method="post">
-    ID <input type="text" name="memberId"><br>
+    ID（変更不可）<input type="text" name="memberId"><br>
 
     パスワード
     <input type="password" name="password" id="password"><br>
