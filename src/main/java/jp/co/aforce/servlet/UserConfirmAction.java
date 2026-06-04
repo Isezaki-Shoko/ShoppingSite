@@ -27,6 +27,18 @@ public class UserConfirmAction extends Action {
             String mailAddress = request.getParameter("mailAddress");
 
             String pattern = "^[a-zA-Z0-9]{8,16}$";
+            
+            if (memberId == null || memberId.isEmpty()
+                    || password == null || password.isEmpty()
+                    || lastName == null || lastName.isEmpty()
+                    || firstName == null || firstName.isEmpty()
+                    || address == null || address.isEmpty()
+                    || mailAddress == null || mailAddress.isEmpty()) {
+
+                request.setAttribute("message", "すべての項目を入力してください");
+                return "/views/user-add.jsp";
+            }
+
 
             if (!memberId.matches(pattern)) {
                 request.setAttribute("message",

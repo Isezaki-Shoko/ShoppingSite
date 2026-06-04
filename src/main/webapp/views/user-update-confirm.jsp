@@ -3,17 +3,23 @@
 <title>修正内容確認</title>
 
 <p>
-	ID：<jsp:getProperty name="user" property="memberId" /></p>
+	ID：${user.memberId}
+</p>
+
 <p>
-	名前：<jsp:getProperty name="user" property="lastName" />
-	<jsp:getProperty name="user" property="firstName" /></p>
+	名前：${user.lastName} ${user.firstName}
+</p>
+
 <p>
-	住所：<jsp:getProperty name="user" property="address" /></p>
+	住所：${user.address}
+</p>
+
 <p>
-	メールアドレス：<jsp:getProperty name="user" property="mailAddress" /></p>
+	メールアドレス：${user.mailAddress}
+</p>
 
 <form
-	action="<%=request.getContextPath()%>/jp/co/aforce/servlet/UserUpdate.action"
+	action="<%=request.getContextPath()%>/jp/co/aforce/servlet/UserUpdateSuccess.action"
 	method="post">
 	<input type="hidden" name="memberId" value="${user.memberId}">
 	<input type="hidden" name="password" value="${user.password}">

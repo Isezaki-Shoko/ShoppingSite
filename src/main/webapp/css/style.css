@@ -1,79 +1,275 @@
 @charset "UTF-8";
 
-/* 全体 */
+/* ===================================================
+   1. 全体設定（背景・フォント・マウスポインター）
+   =================================================== */
 body {
     margin: 0;
     padding: 0;
-    background-color: #1f1f1f;
-    color: #e0e0e0;
-    font-family: "Yu Gothic", "Meiryo", sans-serif;
+    /* ドラマチック・デュアルオーブ：左上にエメラルド、右下に紫の妖光 */
+    background: 
+        radial-gradient(circle at 10% 15%, rgba(16, 185, 129, 0.35) 0%, transparent 45%),
+        radial-gradient(circle at 90% 85%, rgba(139, 92, 246, 0.25) 0%, transparent 55%),
+        #050406; /* ベースの漆黒 */
+    background-attachment: fixed;
+    color: #f1f5f9;
+    font-family: "Times New Roman", "YuMincho", "遊明朝", serif;
+    letter-spacing: 0.12em;
+    /* ユーザー様ご指定のカスタムポインター */
+    cursor: url('https://hpgpixer.jp/image_icons/music/music_icon/guiter/e-guiter_3.gif'), auto;
 }
 
 /* ヘッダー・フッター */
-header,
-footer {
-    background-color: #2b2b2b;
-    color: #ffffff;
+header, footer {
+    background-color: #060508;
+    color: #64748b;
     text-align: center;
-    padding: 15px;
+    padding: 25px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(16, 185, 129, 0.2);
 }
 
-/* メインコンテンツ */
+/* ===================================================
+   2. アニメーション定義（@keyframes）
+   =================================================== */
+
+/* 演出1：画面を開いた瞬間の「霧からの降臨」（フェードイン） */
+@keyframes boxFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+        filter: blur(4px); /* 最初は微かにぼかす */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);   /* 最後はクッキリ */
+    }
+}
+
+/* 演出2：入力欄の「呼吸するエメラルド光線」 */
+@keyframes focusPulse {
+    0% {
+        box-shadow: 0 0 8px rgba(52, 211, 153, 0.2);
+        background-color: rgba(15, 13, 18, 0.95);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(52, 211, 153, 0.5), 
+                    inset 0 0 8px rgba(52, 211, 153, 0.1);
+        background-color: rgba(20, 30, 25, 0.95);
+    }
+}
+
+/* 演出3：ボタンクリック時の波紋エフェクト用 */
+@keyframes rippleAnimation {
+    to {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+
+/* ===================================================
+   3. 中央のメインボックス（main）
+   =================================================== */
 main {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 30px;
-    background-color: #2a2a2a;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    max-width: 440px;
+    margin: 80px auto;
+    padding: 50px;
+    /* 重複を1つに統合：背後の光を綺麗に遮断しつつ立体感を出す絶妙な暗緑黒 */
+    background-color: rgba(10, 15, 12, 0.96); 
+    border-radius: 6px;
+    border: 1px solid #10b981; /* 鮮烈なエメラルドの枠線 */
+    /* ボックスの後ろからうっすら光を漏らす高級感 */
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95),
+                0 0 30px rgba(16, 185, 129, 0.15);
+    
+    /* 演出1：フェードインアニメーションを適用 */
+    animation: boxFadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
 }
 
-/* 見出し */
-h1,
-h2 {
+
+/* ===================================================
+   4. 見出し・テキスト関連
+   =================================================== */
+
+/* 一番上の「ログイン」：大きく・太く存在感を出す */
+h1 {
     text-align: center;
+    font-size: 32px;
+    font-weight: 800;
     color: #ffffff;
-    margin-bottom: 25px;
+    letter-spacing: 0.25em;
+    margin-bottom: 45px;
+    text-shadow: 0 0 20px rgba(52, 211, 153, 0.5),
+                 0 0 40px rgba(52, 211, 153, 0.2);
 }
 
-/* フォーム */
-form {
+/* 「はじめてご利用の方」：小さく・細くして上品に引き算（クラス名の頭に . を補正） */
+h2, .signup-title { 
+    text-align: left;
+    font-size: 16px;
+    font-weight: 300;
+    color: #cbd5e1;
+    margin-top: 40px;
     margin-bottom: 20px;
+    letter-spacing: 0.15em;
 }
 
-/* 入力欄 */
+/* 必須マーク(*)やエラーを、絶対に潰れない「明るいエメラルド」へ */
+span[style*="color:red"], 
+p[style*="color:red"] {
+    color: #34d399 !important;
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(52, 211, 153, 0.4);
+}
+
+/* フォームのラベルテキスト */
+form {
+    margin-bottom: 25px;
+    font-size: 14px;
+    font-family: "Yu Gothic", sans-serif;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+
+/* ===================================================
+   5. 入力フォーム（通常 ＆ フォーカス時）
+   =================================================== */
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"] {
     width: 100%;
     box-sizing: border-box;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    border: 1px solid #555;
-    border-radius: 5px;
-    background-color: #3a3a3a;
-    color: white;
+    padding: 13px 16px;
+    margin-top: 8px;
+    margin-bottom: 25px;
+    border: 1px solid #2e2a38;
+    border-radius: 4px;
+    background-color: #09080c;
+    color: #ffffff;
+    font-size: 16px;
+    font-family: "Yu Gothic", sans-serif;
+    transition: all 0.3s ease;
 }
 
-/* ボタン */
+/* ★フォーカス時：演出2「呼吸するエメラルド光線」を完全に紐付け */
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    outline: none;
+    border-color: #34d399 !important;
+    animation: focusPulse 2s infinite alternate ease-in-out;
+}
+
+
+/* ===================================================
+   6. ボタン（通常 ＆ ホバー時 ＆ 波紋準備）
+   =================================================== */
 input[type="submit"] {
     width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4a5568;
-    color: white;
-    font-size: 15px;
+    padding: 16px;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    border-radius: 4px;
+    background-color: #09080c;
+    color: #34d399;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    
+    /* JavaScriptで生成する波紋エフェクト（演出3）をはみ出させないための土台 */
+    position: relative;
+    overflow: hidden;
 }
 
+/* ★ホバー時：ボタン全体が明るいエメラルドに染まる */
 input[type="submit"]:hover {
-    background-color: #5f6f87;
+    background-color: #10b981;
+    border-color: #34d399;
+    color: #060508;
+    font-weight: 700;
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
 }
 
-/* メッセージ */
-p {
+/* 演出3：波紋エフェクト自体の見た目 */
+.btn-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(52, 211, 153, 0.5);
+    transform: scale(0);
+    pointer-events: none;
+    animation: rippleAnimation 0.6s linear;
+}
+
+
+/* ===================================================
+   7. 会員一覧（テーブル）画面の横幅拡張設定
+   =================================================== */
+
+/* ① テーブルが存在する画面だけ、メインボックスの横幅をグッと広げる */
+main:has(table) {
+    max-width: 980px !important; /* 通常の440px設定をここで確実に上書き */
+    width: 95%;
+    padding: 50px 40px;
+    /* 管理者ページを開いたときもフェードインを適用 */
+    animation: boxFadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ② テーブル全体のレイアウト */
+main table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 35px 0 15px 0;
+    font-family: "Yu Gothic", sans-serif;
+    font-size: 14px;
+}
+
+/* ③ 最上段（項目名：th） */
+main th {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    font-weight: 700;
+    padding: 14px 10px;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    letter-spacing: 0.1em;
+}
+
+/* ④ データが入るセル（td） */
+main td {
+    padding: 16px 12px;
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    color: #f1f5f9;
     text-align: center;
-    margin-bottom: 20px;
+    vertical-align: middle;
+}
+
+/* ⑤ 「ID」「姓」「名」の横並びを絶対に死守（縦書き防止） */
+main th:nth-child(1), main td:nth-child(1),
+main th:nth-child(2), main td:nth-child(2),
+main th:nth-child(3), main td:nth-child(3) {
+    white-space: nowrap;
+}
+
+/* ⑥ 「住所」と「メール」を左寄せにして読みやすく */
+main td:nth-child(4),
+main td:nth-child(5) {
+    text-align: left;
+}
+
+/* ⑦ メールアドレスのフォント */
+main td:nth-child(5) {
+    font-family: "Times New Roman", serif;
+    letter-spacing: 0.05em;
+    color: #cbd5e1;
+}
+
+/* ⑧ 行ホバー時の淡い発光演出 */
+main tr:hover td {
+    background-color: rgba(16, 185, 129, 0.04);
+    border-color: rgba(16, 185, 129, 0.4);
+    transition: all 0.2s ease;
 }

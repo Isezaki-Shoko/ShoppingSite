@@ -4,16 +4,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import jp.co.aforce.beans.Users;
-import jp.co.aforce.dao.UsersDAO;
 import tool.Action;
 
-public class UserSuccessAction extends Action {
+public class UserUpdateConfirmAction extends Action {
 
-    @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
-
-        request.setCharacterEncoding("UTF-8");
+    public String execute(
+            HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
 
         Users user = new Users();
 
@@ -24,16 +21,8 @@ public class UserSuccessAction extends Action {
         user.setAddress(request.getParameter("address"));
         user.setMailAddress(request.getParameter("mailAddress"));
 
-        UsersDAO dao = new UsersDAO();
-
-        int result = dao.insert(user);
-
-        if (result == 1) {
-            return "/views/user-update-success.jsp";
-        }
-
-        request.setAttribute("message", "会員登録に失敗しました。");
         request.setAttribute("user", user);
-        return "/views/user-update.jsp";
+
+        return "/views/user-update-confirm.jsp";
     }
 }

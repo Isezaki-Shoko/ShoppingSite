@@ -3,6 +3,8 @@ package jp.co.aforce.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import jp.co.aforce.beans.Users;
 
@@ -109,4 +111,32 @@ public int update(Users user) throws Exception {
 
     return line;
 }
-}
+
+	public List<Users>selectAll()throws Exception{
+		List<Users> list =new ArrayList<>();
+		Connection con=getConnection();
+		PreparedStatement st=
+				con.prepareStatement(
+						"SELECT * FROM USERS ORDER BY MEMBER_ID");
+		
+		ResultSet rs =st.executeQuery();
+		
+		while(rs.next()){
+			Users user = new Users();
+
+	        user.setMemberId(rs.getString("MEMBER_ID"));
+	        user.setPassword(rs.getString("PASSWORD"));
+	        user.setLastName(rs.getString("LAST_NAME"));
+	        user.setFirstName(rs.getString("FIRST_NAME"));
+	        user.setAddress(rs.getString("ADDRESS"));
+	        user.setMailAddress(rs.getString("MAIL_ADDRESS"));
+
+	        list.add(user);
+	    }
+
+	    st.close();
+	    con.close();
+
+	    return list;
+	}
+		}

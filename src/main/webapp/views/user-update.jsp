@@ -2,8 +2,9 @@
 <%@include file="../header.html"%>
 
 <h1>会員情報修正</h1>
-
-<form action="<%=request.getContextPath()%>/view/user-update-confirm.jsp" method="post">
+<title>会員情報修正</title>
+<form action="<%=request.getContextPath()%>/jp/co/aforce/servlet/UserUpdateConfirm.action"
+	method="post">
 
     ID(変更不可)<br>
     <input type="text" name="memberId"
@@ -32,5 +33,8 @@
     <input type="submit" value="更新">
 
 </form>
-
+<form action="<%=request.getContextPath()%>/views/user-menu.jsp"
+	method="get">
+	<input type="submit" value="戻る">
+</form>
 <%@include file="../footer.html"%>
